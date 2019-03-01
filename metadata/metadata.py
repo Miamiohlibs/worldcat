@@ -17,11 +17,13 @@
 # limitations under the License.
 ###############################################################################
 
-# Sample HMAC Hashing for Bibliographic record retrieval
+# Retrieves status of individual OCLC number
 
 from authliboclc import wskey, user
 import requests
 import get_token
+from get_token import my_wskey, my_user
+
 
 #
 # Continue to split get_token out of primary script, updating header for each request
