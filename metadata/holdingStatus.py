@@ -26,8 +26,6 @@ def status(oclcNumb):
     import get_token
     from get_token import my_wskey, my_user
 
-
-    #oclcNumb = '823520512'
     request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumber='+oclcNumb
 
     authorization_header = my_wskey.get_hmac_signature(
