@@ -107,4 +107,4 @@ venv.bak/
 get_token.py
 
 #swap files
-*/.*.py.swp
+*.swp
