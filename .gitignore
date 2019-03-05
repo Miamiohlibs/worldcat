@@ -107,4 +107,8 @@ venv.bak/
 get_token.py
 
 #swap files
-*.swp
+.*.swp
+
+#text and csv files
+*.txt
+*.csv
