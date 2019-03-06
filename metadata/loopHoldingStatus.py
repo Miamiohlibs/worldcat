@@ -1,20 +1,27 @@
-import csv, holdingStatus
-from holdingStatus import status
+#purpose of looping through csv list of records
 
-with open('../data/sandboxRecords.csv') as file:
-    data = list(csv.reader(file))
+def loopHolding():
+    import csv, holdingStatus
+    from holdingStatus import status
 
-counter = 0
-for i in data:
-    #check to make sure oclcnumb is correct length
-    number = data[counter][0]
-    holding = status(number)
-    print(number,holding)
-    counter += 1 #probably a better way to do counter
+    with open('../data/sandboxRecords.csv') as file:
+        data = list(csv.reader(file))
+
+    for i in data:
+        for s in range(len(data)):
+        #check to make sure oclcnumb is correct length
+            number = data[s][0]
+            holding = status(number)
+            print(s,number,holding)
+
+        if s == len(data)-1:
+            break
+    print("stop")
+
 
     #if holding = False:
         #updateHolding(number)
     #elif holding = True:
         #Something
-    #Else:
+    #else:
         #nothing
