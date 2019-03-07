@@ -20,7 +20,7 @@
 # Retrieves status of individual OCLC number from your local/test collection
 # Currently MIA is hardcoded; could replace with arg/kwarg variable if needed
 
-def status(oclcNumb):
+def update(oclcNumb):
     import requests, json
     import get_token
     from get_token import my_wskey, my_user
