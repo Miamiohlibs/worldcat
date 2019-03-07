@@ -22,6 +22,8 @@
 
 def loopHolding():
     import csv, holdingStatus, re
+    from unsetHolding import unset
+    from setHolding import set
     from holdingStatus import status
 
     with open('../data/sandboxRecords.csv') as file:
@@ -33,13 +35,12 @@ def loopHolding():
             number = re.sub("[^0-9]","",data[s][0]) #takes out any characters
             #if len(number) !=
             holding = status(number)
-            #if holding = False:
-                #updateHolding(number)
-            #elif holding = True:
-                #Something
+            if holding == False:
+                print(print(s,number,holding,set(number)) #dev testing vars
+            elif holding == True:
+                print(s,number,holding,unset(number)) #dev testing vars
             #else:
                 #nothing
-            print(s,number,holding) #dev testing variables
         if s == len(data)-1:
             break
     print("stop")
