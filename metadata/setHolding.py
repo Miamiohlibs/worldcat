@@ -40,9 +40,9 @@ def set(oclcNumb):
     try:
         r = requests.post(request_url, headers=headers)
         r.raise_for_status()
-
+            if r.status_code = 201:
+                return "status updated"
+            else:
+                return r.status_code
     except requests.exceptions.HTTPError as err:
         print("Read failed. " + str(err.response.status_code))
-
-    #loads response into object;returns oclc number status
-    return r.text
