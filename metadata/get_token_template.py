@@ -17,11 +17,9 @@
 # limitations under the License.
 ###############################################################################
 
-# Sample HMAC Hashing for Bibliographic record retrieval
+# Sample HMAC Hashing for any sandbox OCLC record retrieval
 
 from authliboclc import wskey, user
-import requests
-import xml.etree.ElementTree as ET
 
 #
 # You must supply these parameters to authenticate
@@ -44,4 +42,3 @@ my_user = user.User(
     principal_id=principal_id,
     principal_idns=principal_idns
 )
-

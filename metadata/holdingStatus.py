@@ -21,7 +21,6 @@
 # Currently MIA is hardcoded; could replace with arg/kwarg variable if needed
 
 def status(oclcNumb):
-    from authliboclc import wskey, user
     import requests, json
     import get_token
     from get_token import my_wskey, my_user

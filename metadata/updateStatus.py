@@ -21,12 +21,11 @@
 # Currently MIA is hardcoded; could replace with arg/kwarg variable if needed
 
 def status(oclcNumb):
-    from authliboclc import wskey, user
     import requests, json
     import get_token
     from get_token import my_wskey, my_user
 
-    request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumber='+oclcNumb
+    request_url = 'https://worldcat.org/ih/data?classificationScheme=LibraryOfCongress&oclcNumber='+oclcNumb
 
     authorization_header = my_wskey.get_hmac_signature(
         method='GET',
