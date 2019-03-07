@@ -20,15 +20,16 @@
 # Retrieves status of individual OCLC number from your local/test collection
 # Currently MIA is hardcoded; could replace with arg/kwarg variable if needed
 
-def update(oclcNumb):
+def set(oclcNumb):
     import requests, json
     import get_token
     from get_token import my_wskey, my_user
 
     request_url = 'https://worldcat.org/ih/data?classificationScheme=LibraryOfCongress&oclcNumber='+oclcNumb
 
+    #problem with HMAC signature
     authorization_header = my_wskey.get_hmac_signature(
-        method='GET',
+        method='POST',
         request_url=request_url,
         options={
             'user': my_user,
@@ -37,11 +38,11 @@ def update(oclcNumb):
 
     headers={'Authorization': authorization_header, 'Accept':'application/atom+json; charset=utf8'}
     try:
-        r = requests.get(request_url, headers=headers)
+        r = requests.post(request_url, headers=headers)
         r.raise_for_status()
 
     except requests.exceptions.HTTPError as err:
         print("Read failed. " + str(err.response.status_code))
 
     #loads response into object;returns oclc number status
-    return json.loads(r.content)["content"]["holdingCurrentlySet"]
+    return r.text
