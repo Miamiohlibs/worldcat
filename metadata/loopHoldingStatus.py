@@ -9,10 +9,9 @@ def loopHolding():
 
     for i in data:
         for s in range(len(data)):
+            #check to make sure oclcnumber is correct length
             number = re.sub("[^0-9]","",data[s][0]) #takes out any characters
-
-                #check to make sure oclcnumb is correct length
-                #if len(number) !=
+            #if len(number) !=
             holding = status(number)
             #if holding = False:
                 #updateHolding(number)
