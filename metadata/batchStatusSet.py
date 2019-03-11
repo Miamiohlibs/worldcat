@@ -21,13 +21,19 @@
 #purpose: loop through csv list of records
 
 def loopHolding():
-    import csv, holdingStatus, re, numpy
+    import csv, holdingStatus, re, numpy, urllib
     from unsetHolding import unset
     from setHolding import set
     from holdingStatus import status
 
     data = numpy.loadtxt(open('../data/sandboxRecords.csv'), delimiter='/n',dtype='int')
 
+    url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(test)
+
+
+
+
+#use to parse response of batch api
     for i in data:
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length
@@ -36,11 +42,9 @@ def loopHolding():
             number = re.sub("[^0-9]","",str(data[s])) #takes out any characters
             #if len(number) !=
             holding = status(number)
-            #toggle to test switching between set and unsetting holding status
+            #try to set status from error response object
             if holding == False:
                 print(s,number,holding,set(number)) #dev testing vars
-            elif holding == True:
-                print(s,number,holding,unset(number)) #dev testing vars
             #else:
                 #nothing
         if s == len(data)-1:
