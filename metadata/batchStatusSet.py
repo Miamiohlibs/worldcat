@@ -18,18 +18,38 @@
 ###############################################################################
 
 
-#purpose: loop through csv list of records
+#purpose: sets the status for fifty items from csv
 
 def loopHolding():
+    import requests, json
+    import get_token
+    from get_token import my_wskey, my_user
+
     import csv, holdingStatus, re, numpy, urllib
     from unsetHolding import unset
     from setHolding import set
     from holdingStatus import status
 
     data = numpy.loadtxt(open('../data/sandboxRecords.csv'), delimiter='/n',dtype='int')
-
+    test = list(data[:50])
+    #base url plus url encode csv converting commas to %20
     url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(test)
 
+    authorization_header = my_wskey.get_hmac_signature(
+        method='POST',
+        request_url=request_url,
+        options={
+            'user': my_user,
+            'auth_params': None}
+    )
+
+    headers={'Authorization': authorization_header, 'Accept':'application/atom+json; charset=utf8'}
+    try:
+        r = requests.post(request_url, headers=headers)
+        r.raise_for_status()
+
+    except requests.exceptions.HTTPError as err:
+        print("Read failed. " + str(err.response.status_code))
 
 
 
