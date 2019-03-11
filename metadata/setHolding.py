@@ -41,7 +41,7 @@ def set(oclcNumb):
         r = requests.post(request_url, headers=headers)
         r.raise_for_status()
         if r.status_code == 201:
-            return "status updated"
+            return "status set"
         else:
             return r.status_code
     except requests.exceptions.HTTPError as err:
