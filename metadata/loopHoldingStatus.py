@@ -38,7 +38,7 @@ def loopHolding():
             holding = status(number)
             #toggle to test switching between set and unsetting holding status
             if holding == False:
-                print(print(s,number,holding,set(number)) #dev testing vars
+                print(s,number,holding,set(number)) #dev testing vars
             elif holding == True:
                 print(s,number,holding,unset(number)) #dev testing vars
             #else:
