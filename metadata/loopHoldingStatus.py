@@ -32,6 +32,7 @@ def loopHolding():
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length
             #number errors out; does not like str action on numpy bytes object
+            #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
             number = re.sub("[^0-9]","",data[s]) #takes out any characters
             #if len(number) !=
             holding = status(number)
