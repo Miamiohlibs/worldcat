@@ -21,22 +21,24 @@
 #purpose: loop through csv list of records
 
 def loopHolding():
-    import csv, holdingStatus, re, batchStatus
+    import csv, holdingStatus, re, numpy
     from unsetHolding import unset
     from setHolding import set
     from holdingStatus import status
 
-    with open('../data/sandboxRecords.csv') as file:
-        data = list(csv.reader(file))
+    data = numpy.loadtxt(open('../data/sandboxRecords.csv'), delimiter='/n',dtype='int')
 
-    for i in data[:50]: #take first subset of 50
+    for i in data:
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length
-            number = re.sub("[^0-9]","",data[s][0]) #takes out any characters
+            #number errors out; does not like str action on numpy bytes object
+            #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
+            number = re.sub("[^0-9]","",str(data[s])) #takes out any characters
             #if len(number) !=
             holding = status(number)
+            #toggle to test switching between set and unsetting holding status
             if holding == False:
-                print(print(s,number,holding,set(number)) #dev testing vars
+                print(s,number,holding,set(number)) #dev testing vars
             elif holding == True:
                 print(s,number,holding,unset(number)) #dev testing vars
             #else:
