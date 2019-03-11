@@ -29,7 +29,7 @@ def loopHolding():
     with open('../data/sandboxRecords.csv') as file:
         data = list(csv.reader(file))
 
-    for i in data:
+    for i in data[:50]: #take first subset of 50
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length
             number = re.sub("[^0-9]","",data[s][0]) #takes out any characters
