@@ -20,7 +20,7 @@
 
 #purpose: sets the status for fifty items from csv
 
-def loopHolding():
+def batchSet():
     import requests, json
     import get_token
     from get_token import my_wskey, my_user
@@ -31,6 +31,7 @@ def loopHolding():
     from holdingStatus import status
 
     data = numpy.loadtxt(open('../data/sandboxRecords.csv'), delimiter='/n',dtype='int')
+    #need to loop through more than fifty or entire csv
     test = list(data[:50])
     #base url plus url encode csv converting commas to %20
     url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(test)
@@ -47,13 +48,15 @@ def loopHolding():
     try:
         r = requests.post(request_url, headers=headers)
         r.raise_for_status()
-
+        return json.loads(r.content)
     except requests.exceptions.HTTPError as err:
         print("Read failed. " + str(err.response.status_code))
 
+#parse the response of batchSet()
+def responseParse(r):
 
 
-#use to parse response of batch api
+    #use to parse response of batch api
     for i in data:
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length

@@ -25,7 +25,9 @@ def status(fifty): #list of 50 OCLC numbers
     import get_token
     from get_token import my_wskey, my_user
 
-    request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumbers='+fifty
+    #missing csv import using numpy; merge the with batchStatusSet.py
+
+    request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(test)
 
     authorization_header = my_wskey.get_hmac_signature(
         method='GET',
