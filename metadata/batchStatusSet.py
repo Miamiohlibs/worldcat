@@ -55,9 +55,10 @@ def batchSet():
 #parse the response of batchSet()
 def responseParse(r):
 
+    #parse r json conent looking for status codes other than 409 and 200
 
     #use to parse response of batch api
-    for i in data:
+    for i in r:
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length
             #number errors out; does not like str action on numpy bytes object
