@@ -1,7 +1,8 @@
 ﻿SELECT 
-*
+-- *
 -- count(*)  --total OCLC numbers = 1,387,592
 -- count(DISTINCT(p.index_entry)) --should only be OCLC numbers
+DISTINCT(p.index_entry)
 
 -- for the greenglass project prep
 -- DISTINCT(r.record_type_code || r.record_num || 'a') AS bib_rec
@@ -45,32 +46,25 @@ b.bcode1 = 'm' --exclude serials
 AND
 l.location_code != 'onl' -- excludes more eresources
 AND
-l.location_code -- = 'swdep'
-IN 
-('kngl', --KING MAIN
-'imc', --YOU KNOW
-'aal', --ART/ARCH
-'spe', --SPEC
-'mic', --SPEC
-'scl', --BEST
-'mul', --MUSIC
-'ref', --KING REF
+l.location_code   = 'knle'
+-- IN
+-- ('kngl', --KING MAIN
+-- 'imc', --YOU KNOW
+-- 'aal', --ART/ARCH
+-- 'spe', --SPEC
+-- 'mic', --SPEC
+-- 'scl', --BEST
+-- 'mul', --MUSIC
+-- 'ref', --KING REF
+-- 
+-- 
+-- --locations to exclude in production
+-- 	'doc') --,'mdl','hal','swdep','knle' --king leisure
 
-
---locations to exclude in production
-	'doc','mdl','hal','swdep', 'multi')
-
-
--- AND  --can't seem to exclude online gov docs easily
--- l.location_code NOT IN 
--- ('doc','hal','swdep','mdl')
-
--- i.item_status_code != -- in copy cat (23 or n) ?!
--- r.record_type_code = 'i'
 
 -- for production monthly
 -- AND r.record_last_updated_gmt::date > '2019-03-01'
 
 
-LIMIT 100
+-- LIMIT 100
 -- ORDER BY bib_rec DESC
