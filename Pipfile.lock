@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b028647ec560923c3e3ccc7d35ca894bdcffb7c63b493fc95655ec7c10c0c4a6"
+            "sha256": "1660118059b82d01be2e9b80abeba07c583093a0545a362848cfef5e964aee19"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,10 +18,10 @@
     "default": {
         "certifi": {
             "hashes": [
-                "sha256:47f9c83ef4c0c621eaef743f133f09fa8a74a9b75f037e8624f83bd1b6626cb7",
-                "sha256:993f830721089fef441cdfeb4b2c8c9df86f0c63239f06bd025a76a7daddb033"
+                "sha256:59b7658e26ca9c7339e00f8f4636cdfe59d34fa37b9b04f6f9e9926b3cece1a5",
+                "sha256:b26104d6835d1f5e49452a26eb2ff87fe7090b89dfcaee5ea2212697e1e1d7ae"
             ],
-            "version": "==2018.11.29"
+            "version": "==2019.3.9"
         },
         "chardet": {
             "hashes": [
@@ -73,6 +73,13 @@
             ],
             "index": "pypi",
             "version": "==2.21.0"
+        },
+        "sqlalchemy": {
+            "hashes": [
+                "sha256:91c54ca8345008fceaec987e10924bf07dcab36c442925357e5a467b36a38319"
+            ],
+            "index": "pypi",
+            "version": "==1.3.3"
         },
         "urllib3": {
             "hashes": [
