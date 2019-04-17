@@ -5,9 +5,13 @@ def oclcFlow(filename):
 
 
 def sqlImport(sqlName):
-    with open('../sql/'+sqlName, 'r') as f:
+    with open('../sql/'+sqlName, 'r', encoding='utf-8-sig') as f:
         content = f.read()
         content = content.replace('\n',' ')
         f.close()
     return content
     #not returning exact file contents
+    # sqlName = 'mdl-min.sql'
+
+def pgsqlConnect():
+    
