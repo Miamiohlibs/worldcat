@@ -8,7 +8,7 @@ requests = ">=2.20.0"
 xmljson = "*"
 numpy = "*"
 sqlalchemy = "*"
-sqlite3 = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
