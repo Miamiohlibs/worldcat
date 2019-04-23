@@ -14,6 +14,7 @@ def sqlImport(sqlName):
     # sqlName = 'mdl-min.sql'
 
 # def main(password):
+# https://pynative.com/python-postgresql-select-data-from-table/
 def main(password,sqlName):
     import psycopg2, sys
     try:
@@ -21,7 +22,7 @@ def main(password,sqlName):
                                       password = password,
                                       host = "host",
                                       port = "port",
-                                      database = "iii")
+                                      database = "db")
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
         print ( connection.get_dsn_parameters(),"\n")
@@ -33,7 +34,7 @@ def main(password,sqlName):
         results = []
         for row in records:
            #print("Item", row, "\n")
-           results.append(row)
+           results.append(row[0])
         return results
     except (Exception, psycopg2.Error) as error :
         print ("Error while connecting to PostgreSQL", error)
