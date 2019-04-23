@@ -21,13 +21,18 @@
 # Currently MIA is hardcoded; could replace with arg/kwarg variable if needed
 
 def status(fifty): #list of 50 OCLC numbers
-    import requests, json
+    import requests, json, urllib
+    from urllib import parse
+    from urllib.parse import quote
     import get_token
     from get_token import my_wskey, my_user
 
-    #missing csv import using numpy; merge the with batchStatusSet.py
 
-    request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(test)
+    # missing csv import using numpy; merge the with batchStatusSet.py
+    # request_url must end with a CSV list of oclc nums which are url encoded
+
+    # need to format var fifty as simple csv?
+    request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(fifty)
 
     authorization_header = my_wskey.get_hmac_signature(
         method='GET',
