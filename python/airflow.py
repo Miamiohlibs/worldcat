@@ -50,9 +50,13 @@ def main(password,sqlName):
 # 	main()
 
 def sortingHat(results):
-    try:
-        i = int(test)
-        print(i)
-    except ValueError:
-        badInt.append(test)
-        print('string goes to bad place')
+    for i in results:
+        try:
+            test = int(i)
+            print(test)
+        except Exception:
+            good.append(int(i))
+            print('good place')
+        except ValueError:
+            badInt.append(test)
+            print('string goes to bad place')
