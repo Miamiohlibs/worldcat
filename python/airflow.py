@@ -20,7 +20,7 @@ def main(password,sqlName):
     try:
         connection = psycopg2.connect(user = "user",
                                       password = password,
-                                      host = "host",
+                                      host = "hostIP",
                                       port = "port",
                                       database = "db")
         cursor = connection.cursor()
@@ -48,3 +48,11 @@ def main(password,sqlName):
 
 # if __name__ == "__main__":
 # 	main()
+
+def sortingHat(results):
+    try:
+        i = int(test)
+        print(i)
+    except ValueError:
+        badInt.append(test)
+        print('string goes to bad place')
