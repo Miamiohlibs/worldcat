@@ -29,10 +29,10 @@ def status(fifty): #list of 50 OCLC numbers
 
 
     # missing csv import using numpy; merge the with batchStatusSet.py
-    # request_url must end with a CSV list of oclc nums which are url encoded
 
     # fifty arrives as list array; from list to csv format use .join
     sliced = ','.join(fifty)
+    # request_url must end with a CSV list of oclc nums which are url encoded
     request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(sliced)
 
     authorization_header = my_wskey.get_hmac_signature(
