@@ -18,11 +18,11 @@ def sqlImport(sqlName):
 def main(password,sqlName):
     import psycopg2, sys
     try:
-        connection = psycopg2.connect(user = "user",
-                                      password = password,
-                                      host = "hostIP",
-                                      port = "port",
-                                      database = "db")
+        # connection = psycopg2.connect(user = "user",
+        #                               password = password,
+        #                               host = "hostIP",
+        #                               port = "port",
+        #                               database = "db")
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
         print ( connection.get_dsn_parameters(),"\n")
@@ -50,13 +50,19 @@ def main(password,sqlName):
 # 	main()
 
 def sortingHat(results):
+    good,bad = [],[]
     for i in results:
         try:
             test = int(i)
             print(test)
+        except ValueError:
+            bad.append(i)
+            print('string goes to bad place')
         except Exception:
             good.append(int(i))
             print('good place')
-        except ValueError:
-            badInt.append(test)
-            print('string goes to bad place')
+    return good, bad
+
+from airflow import sortingHat
+slice = ['28633839', '29260', '21972508', '12555624', '32609688', '32075467', '313365654', '11262171', '28384097', '18886825', '13409asdf']
+good,bad = sortingHat(slice)
