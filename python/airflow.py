@@ -65,7 +65,7 @@ def sortingHat(results):
 
 # test sortingHat criteria
 # from airflow import main, sqlImport, sortingHat
-# results = main()
+# results = main('passwd', sqlImport('main-campus-min.sql'))
 
 # slice = ['28633839', '29260', '21972508', '12555624', '32609688', '32075467', '313365654', '11262171', '28384097', '18886825', '13409asdf']
-# good,bad = sortingHat(slice)
+# good,bad = sortingHat(results)
