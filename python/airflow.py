@@ -1,10 +1,8 @@
-def oclcFlow(filename):
-    import sqlite3
-
-    sql_command = sqlImport(filename)
-
+# collection of functions to parse Sierra sql data and check OCLC holdings
 
 def sqlImport(sqlName):
+    # opens a local saved .sql file and returns the query
+    # query must be in a minified format without carriage returns or comments
     with open('../sql/'+sqlName, 'r', encoding='utf-8-sig') as f:
         content = f.read()
         content = content.replace('\n',' ')
@@ -13,7 +11,10 @@ def sqlImport(sqlName):
     #not returning exact file contents
     # sqlName = 'mdl-min.sql'
 
-# def main(password):
+# main() accepts sql password and minimized sql query as args
+# main() parses any sql query and returns a list array for each row in result
+# remove commented database criteria to establish connection
+# normal sql network access limits/firewalls apply
 # https://pynative.com/python-postgresql-select-data-from-table/
 def main(password,sqlName):
     import psycopg2, sys
@@ -49,20 +50,20 @@ def main(password,sqlName):
 # if __name__ == "__main__":
 # 	main()
 
+
 def sortingHat(results):
+    # parses list of OCLC numbers into good integers or bad integers if char
     good,bad = [],[]
     for i in results:
         try:
-            test = int(i)
-            print(test)
             good.append(int(i))
-            print('good place')
+            # print('good place')
         except ValueError:
             bad.append(i)
-            print('string goes to bad place')
+            # print('string goes to bad place')
     return good, bad
 
-
+# test sortingHat criteria
 from airflow import sortingHat
 slice = ['28633839', '29260', '21972508', '12555624', '32609688', '32075467', '313365654', '11262171', '28384097', '18886825', '13409asdf']
 good,bad = sortingHat(slice)
