@@ -1,4 +1,4 @@
-# collection of functions to parse Sierra sql data and check OCLC holdings
+s to fee# collection of functions to parse Sierra sql data and check OCLC holdings
 
 def sqlImport(sqlName):
     # opens a local saved .sql file and returns the query
@@ -51,10 +51,9 @@ def main(password,sqlName):
 # 	main()
 
 
-def sortingHat(results):
+def sortingHat(slice):
     # parses list of OCLC numbers into good integers or bad integers if char
-    good,bad = [],[]
-    for i in results:
+    for i in slice:
         try:
             good.append(int(i))
             # print('good place')
@@ -62,10 +61,33 @@ def sortingHat(results):
             bad.append(i)
             # print('string goes to bad place')
     return good, bad
-
-# test sortingHat criteria
-# from airflow import main, sqlImport, sortingHat
+# test criteria
+# from airflow import main, sqlImport, sortingHat, shredder
 # results = main('passwd', sqlImport('main-campus-min.sql'))
 
 # slice = ['28633839', '29260', '21972508', '12555624', '32609688', '32075467', '313365654', '11262171', '28384097', '18886825', '13409asdf']
 # good,bad = sortingHat(results)
+
+# if __name__ == "__main__":
+def shredder(queue1,queue2):
+    import threading
+    good,bad = [],[]
+    # print ID of current process
+    print("ID of process running main program: {}".format(os.getpid()))
+
+    # print name of main thread
+    print("Main thread name: {}".format(threading.main_thread().name))
+
+    # creating threads
+    t1 = threading.Thread(target=sortingHat, name='t1', args=queue1)
+    t2 = threading.Thread(target=sortingHat, name='t2', args=queue2)
+
+    # starting threads
+    t1.start()
+    t2.start()
+
+    # wait until all threads finish
+    t1.join()
+    t2.join()
+
+    print(len(good),len(bad))
