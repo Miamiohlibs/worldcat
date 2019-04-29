@@ -20,6 +20,10 @@
 # Retrieves status of individual OCLC number from your local/test collection
 # Currently MIA is hardcoded; could replace with arg/kwarg variable if needed
 
+# per slack with Karen Coombs; no batch status exists, but use the search api
+# instead formatted below
+# srw.no+ANY+"{list of OCLC numbers space separated}"+AND+srw.li={yourOCLCSymbol}
+# More info - https://platform.worldcat.org/api-explorer/apis/wcapi
 def status(fifty): #list of 50 OCLC numbers
     import requests, json, urllib
     from urllib import parse
@@ -33,6 +37,7 @@ def status(fifty): #list of 50 OCLC numbers
     # fifty arrives as list array; from list to csv format use .join
     sliced = ','.join(fifty)
     # request_url must end with a CSV list of oclc nums which are url encoded
+    print(sliced)
     request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(sliced)
 
     authorization_header = my_wskey.get_hmac_signature(
@@ -47,7 +52,6 @@ def status(fifty): #list of 50 OCLC numbers
     try:
         r = requests.get(request_url, headers=headers)
         r.raise_for_status()
-
     except requests.exceptions.HTTPError as err:
         print("Read failed. " + str(err.response.status_code))
 

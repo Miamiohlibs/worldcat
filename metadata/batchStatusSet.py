@@ -52,12 +52,11 @@ def batchSet():
     except requests.exceptions.HTTPError as err:
         print("Read failed. " + str(err.response.status_code))
 
-#parse the response of batchSet()
+# parse the response of batchSet()
 def responseParse(r):
+    # parse r json conent looking for status codes other than 409 and 200
 
-    #parse r json conent looking for status codes other than 409 and 200
-
-    #use to parse response of batch api
+    # parse response of batch api
     for i in r:
         for s in range(len(data)):
             #check to make sure oclcnumber is correct length
