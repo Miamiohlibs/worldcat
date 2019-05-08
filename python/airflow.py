@@ -1,4 +1,4 @@
-s to fee# collection of functions to parse Sierra sql data and check OCLC holdings
+# collection of functions to parse Sierra sql data and check OCLC holdings
 
 def sqlImport(sqlName):
     # opens a local saved .sql file and returns the query
@@ -11,19 +11,22 @@ def sqlImport(sqlName):
     #not returning exact file contents
     # sqlName = 'mdl-min.sql'
 
-# main() accepts sql password and minimized sql query as args
+# accepts sql password and minimized sql query as args
 # main() parses any sql query and returns a list array for each row in result
 # remove commented database criteria to establish connection
 # normal sql network access limits/firewalls apply
 # https://pynative.com/python-postgresql-select-data-from-table/
-def main(password,sqlName):
+def main(password,sqlImport(sqlName)):
+    # alternatively, with sys.arg
+    #   def main(password,sqlImport):
+    #
     import psycopg2, sys
     try:
-        # connection = psycopg2.connect(user = "user",
-        #                               password = password,
-        #                               host = "hostIP",
-        #                               port = "port",
-        #                               database = "db")
+        connection = psycopg2.connect(user = "user",
+                                      password = password,
+                                      host = "hostIP",
+                                      port = "port",
+                                      database = "db")
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
         print ( connection.get_dsn_parameters(),"\n")
@@ -46,13 +49,13 @@ def main(password,sqlName):
                 connection.close()
                 print("PostgreSQL connection is closed")
 
-
 # if __name__ == "__main__":
 # 	main()
 
 
 def sortingHat(slice):
     # parses list of OCLC numbers into good integers or bad integers if char
+    good,bad = [],[]
     for i in slice:
         try:
             good.append(int(i))
@@ -61,17 +64,23 @@ def sortingHat(slice):
             bad.append(i)
             # print('string goes to bad place')
     return good, bad
+    print(good, bad)
 # test criteria
-# from airflow import main, sqlImport, sortingHat, shredder
-# results = main('passwd', sqlImport('main-campus-min.sql'))
+    from airflow import main, sqlImport, sortingHat, shredder
+    results = main('passwd', sqlImport('main-campus-min.sql'))
 
 # slice = ['28633839', '29260', '21972508', '12555624', '32609688', '32075467', '313365654', '11262171', '28384097', '18886825', '13409asdf']
 # good,bad = sortingHat(results)
 
-# if __name__ == "__main__":
-def shredder(queue1,queue2):
-    import threading
+def shredder(passwd):
+    import threading, os
     good,bad = [],[]
+
+    results = main(passwd, sqlImport('main-campus-min.sql'))
+
+    queue1 = results[:50]
+    queue2 = results[50:100]
+
     # print ID of current process
     print("ID of process running main program: {}".format(os.getpid()))
 
@@ -79,10 +88,10 @@ def shredder(queue1,queue2):
     print("Main thread name: {}".format(threading.main_thread().name))
 
     # creating threads
-    t1 = threading.Thread(target=sortingHat, name='t1', args=queue1)
-    t2 = threading.Thread(target=sortingHat, name='t2', args=queue2)
+    t1 = threading.Thread(target=sortingHat, name='t1', args=(queue1,))
+    t2 = threading.Thread(target=sortingHat, name='t2', args=(queue2,))
 
-    # starting threads
+        # starting threads
     t1.start()
     t2.start()
 
@@ -90,4 +99,11 @@ def shredder(queue1,queue2):
     t1.join()
     t2.join()
 
-    print(len(good),len(bad))
+    # print(len(good),len(bad))
+
+    # return(good,bad)
+
+if __name__ == "__main__":
+    import sys
+    passwd = sys.argv[1]
+    shredder(passwd)
