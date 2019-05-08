@@ -31,6 +31,8 @@ b.bcode1 = 'm'
 AND
 l.location_code != 'onl' 
 AND
+b.is_suppressed = 'f'
+AND
 l.location_code  = 'hal'
 
 

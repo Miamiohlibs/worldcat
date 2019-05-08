@@ -1,8 +1,8 @@
 ﻿SELECT 
 -- *
--- count(*)  --total OCLC numbers = 1,387,592
+count(*)  --total OCLC numbers = 1,387,592
 -- count(DISTINCT(p.index_entry)) --should only be OCLC numbers
-DISTINCT(p.index_entry)
+-- DISTINCT(p.index_entry), r.record_num --to enrich output data
 
 -- for the greenglass project prep
 -- DISTINCT(r.record_type_code || r.record_num || 'a') AS bib_rec
@@ -47,6 +47,8 @@ AND
 l.location_code != 'onl' -- excludes more eresources
 AND
 l.location_code  = 'swdep'
+AND
+b.is_suppressed = 'f'
 -- IN 
 -- ('kngl', --KING MAIN
 -- 'imc', --YOU KNOW
@@ -66,5 +68,5 @@ l.location_code  = 'swdep'
 -- AND r.record_last_updated_gmt::date > '2019-03-01'
 
 
--- LIMIT 100
+LIMIT 50
 -- ORDER BY bib_rec DESC

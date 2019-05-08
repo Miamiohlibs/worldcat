@@ -46,6 +46,8 @@ b.bcode1 = 'm' --exclude serials
 AND
 l.location_code != 'onl' -- excludes more eresources
 AND
+b.is_suppressed = 'f'
+AND
 l.location_code  = 'mdl'
 -- IN 
 -- ('kngl', --KING MAIN

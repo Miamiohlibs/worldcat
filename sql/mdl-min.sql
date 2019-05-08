@@ -29,7 +29,9 @@ b.bcode2 != '@'
 AND
 b.bcode1 = 'm' 
 AND
-l.location_code != 'onl' 
+l.location_code != 'onl'
+AND
+b.is_suppressed = 'f'
 AND
 l.location_code  = 'mdl'
 

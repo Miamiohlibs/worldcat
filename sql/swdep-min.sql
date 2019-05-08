@@ -33,3 +33,5 @@ AND
 l.location_code != 'onl' 
 AND
 l.location_code  = 'swdep'
+AND
+b.is_suppressed = 'f'
