@@ -3,54 +3,13 @@
 def sqlImport(sqlName):
     # opens a local saved .sql file and returns the query
     # query must be in a minified format without carriage returns or comments
-    with open('../sql/'+sqlName, 'r', encoding='utf-8-sig') as f:
+    with open('/sql/'+sqlName, 'r', encoding='utf-8-sig') as f:
         content = f.read()
         content = content.replace('\n',' ')
         f.close()
     return content
     #not returning exact file contents
     # sqlName = 'mdl-min.sql'
-
-# accepts sql password and minimized sql query as args
-# main() parses any sql query and returns a list array for each row in result
-# remove commented database criteria to establish connection
-# normal sql network access limits/firewalls apply
-# https://pynative.com/python-postgresql-select-data-from-table/
-def main(password,sqlImport(sqlName)):
-    # alternatively, with sys.arg
-    #   def main(password,sqlImport):
-    #
-    import psycopg2, sys
-    try:
-        connection = psycopg2.connect(user = "user",
-                                      password = password,
-                                      host = "hostIP",
-                                      port = "port",
-                                      database = "db")
-        cursor = connection.cursor()
-        # Print PostgreSQL Connection properties
-        print ( connection.get_dsn_parameters(),"\n")
-        # Print PostgreSQL version
-        cursor.execute(sqlName)
-        # cursor.execute("SELECT * FROM sierra_view.item_record LIMIT 100;")
-        records = cursor.fetchall()
-        # print("You are connected to - ", record,"\n")
-        results = []
-        for row in records:
-           #print("Item", row, "\n")
-           results.append(row[0])
-        return results
-    except (Exception, psycopg2.Error) as error :
-        print ("Error while connecting to PostgreSQL", error)
-    finally:
-        #closing database connection.
-            if(connection):
-                cursor.close()
-                connection.close()
-                print("PostgreSQL connection is closed")
-
-# if __name__ == "__main__":
-# 	main()
 
 
 def sortingHat(slice):
@@ -66,8 +25,7 @@ def sortingHat(slice):
     return good, bad
     print(good, bad)
 # test criteria
-    from airflow import main, sqlImport, sortingHat, shredder
-    results = main('passwd', sqlImport('main-campus-min.sql'))
+    # results = main('passwd', sqlImport('main-campus-min.sql'))
 
 # slice = ['28633839', '29260', '21972508', '12555624', '32609688', '32075467', '313365654', '11262171', '28384097', '18886825', '13409asdf']
 # good,bad = sortingHat(results)
