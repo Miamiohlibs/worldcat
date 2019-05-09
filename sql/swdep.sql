@@ -1,6 +1,6 @@
 ﻿SELECT 
 -- *
-count(*)  --total OCLC numbers = 1,387,592
+count(*)  --total suppressed swdep = 526,655
 -- count(DISTINCT(p.index_entry)) --should only be OCLC numbers
 -- DISTINCT(p.index_entry), r.record_num --to enrich output data
 
