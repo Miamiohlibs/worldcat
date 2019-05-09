@@ -4,6 +4,8 @@
 # normal sql network access limits/firewalls apply
 # https://pynative.com/python-postgresql-select-data-from-table/
 
+# test criteria
+    # results = main('passwd', sqlImport('main-campus-min.sql'))
 
 def main(password,sqlName):
     import psycopg2, sys
