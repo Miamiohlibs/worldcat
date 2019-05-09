@@ -3,7 +3,7 @@
 def sqlImport(sqlName):
     # opens a local saved .sql file and returns the query
     # query must be in a minified format without carriage returns or comments
-    with open('/sql/'+sqlName, 'r', encoding='utf-8-sig') as f:
+    with open('sql/'+sqlName, 'r', encoding='utf-8-sig') as f:
         content = f.read()
         content = content.replace('\n',' ')
         f.close()
