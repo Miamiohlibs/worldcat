@@ -22,8 +22,7 @@
 
 def status(oclcNumb):
     import requests, json
-    import stati.get_token
-    from get_token import my_wskey, my_user
+    from stati.get_token import my_wskey, my_user
 
     request_url = 'https://worldcat.org/ih/checkholdings?holdingLibraryCode=MIA&oclcNumber='+oclcNumb
 
