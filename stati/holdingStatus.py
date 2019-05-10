@@ -38,9 +38,7 @@ def status(oclcNumb):
     try:
         r = requests.get(request_url, headers=headers)
         r.raise_for_status()
-
+        return json.loads(r.content)["content"]["holdingCurrentlySet"]
+        #loads response into object;returns oclc number status
     except requests.exceptions.HTTPError as err:
-        print("Read failed. " + str(err.response.status_code))
-
-    #loads response into object;returns oclc number status
-    return json.loads(r.content)["content"]["holdingCurrentlySet"]
+        return json.loads(str(err.response.status_code))
