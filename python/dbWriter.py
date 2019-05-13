@@ -6,7 +6,7 @@ def dbWriter(results):
     c = conn.cursor()
     for i in results:
         try:
-            test = status(i)    
+            test = status(i)
             if test:
                 print('status checked', test)
             else:
@@ -20,10 +20,11 @@ def dbWriter(results):
                 print('db write failed')
         except:
             ('nothing worked, throwing in the towel')
-        wait = uniform(.2,3)
+        wait = uniform(.2,2)
         time.sleep(wait)
         # mul.append([i,test])
         # print(len(mul))
+
 
 
 # https://python-forum.io/Thread-insert-list-into-sqlite3
