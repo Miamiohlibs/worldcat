@@ -6,14 +6,14 @@ def dbWriter(results):
     c = conn.cursor()
     for i in results:
         try:
-            test = status(i)
+            test = status(i)    
             if test:
                 print('status checked', test)
             else:
                 print('status read failed')
-            c.execute('CREATE TABLE IF NOT EXISTS test(oclc,status)')
+            # c.execute('CREATE TABLE IF NOT EXISTS test(oclc,status)')
             try:
-                c.execute("INSERT INTO test VALUES({},{})".format(test[0],test[1]))
+                c.execute("INSERT INTO test VALUES({},{})".format(i,test))
                 conn.commit()
                 print('db write successful')
             except:
