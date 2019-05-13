@@ -5,7 +5,7 @@
 # https://pynative.com/python-postgresql-select-data-from-table/
 
 # test criteria
-    # results = main('passwd', sqlImport('main-campus-min.sql'))
+    # results = main('passwd', 'mul-min.sql')
 
 def main(password,sqlName):
     import psycopg2, sys
@@ -13,11 +13,11 @@ def main(password,sqlName):
 
     sqlName = sqlImport(sqlName)
     try:
-        connection = psycopg2.connect(user = "user",
-                                      password = password,
-                                      host = "hostIP",
-                                      port = "port",
-                                      database = "db")
+        # connection = psycopg2.connect(user = "user",
+        #                               password = password,
+        #                               host = "hostIP",
+        #                               port = "port",
+        #                               database = "db")
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
         print ( connection.get_dsn_parameters(),"\n")
@@ -35,32 +35,44 @@ def main(password,sqlName):
         print ("Error while connecting to PostgreSQL", error)
     finally:
         #closing database connection.
-            if(connection):
-                cursor.close()
-                connection.close()
-                print("PostgreSQL connection is closed")
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
 
 # if __name__ == "__main__":
 # 	results = main(args,kwargs)
-import time
-from random import uniform
-import sqlite3, time, datetime
-for i in results:
-    test = status(i)
-    mul.append([i,test])
-    print(len(mul))
-    wait = uniform(.2,3)
-    time.sleep(wait)
+def dbWriter(results):
+    from random import uniform
+    import sqlite3, time, datetime
+    from stati.holdingStatus import status
+    for i in results:
+        try:
+            test = status(i)
+            if test:
+                print('status checked')
+            else:
+                print('status read failed')
+            conn = sqlite3.connect('Oxford.db')
+            c = conn.cursor()
+            create_db()
+            data_entry(test)
+            print('db write successful')
+        else:
+            print('db write failed')
+        # mul.append([i,test])
+        # print(len(mul))
+        wait = uniform(.2,3)
+        time.sleep(wait)
+
 
 # https://python-forum.io/Thread-insert-list-into-sqlite3
-conn = sqlite3.connect('Oxford.db')
-c = conn.cursor()
 
 def create_db():
-    c.execute('CREATE TABLE IF NOT EXISTS mul(oclc,status)')
+    c.execute('CREATE TABLE IF NOT EXISTS test(oclc,status)')
 
 def data_entry(i):
-    c.execute("INSERT INTO mul VALUES({},{})".format(i[0],i[1]))
+    c.execute("INSERT INTO test VALUES({},{})".format(i[0],i[1]))
     conn.commit()
     # c.close()
 
