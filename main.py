@@ -42,7 +42,4 @@ def main(password,sqlName):
 
 if __name__ == "__main__":
 	# results = main(args,kwargs)
-    import importlib
-    from importlib import reload
-    importlib.reload(python.dbWriter)
-    from python.dbWriter import dbWriter
+    main()
