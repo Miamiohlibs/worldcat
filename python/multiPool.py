@@ -9,40 +9,40 @@
 
 import time
 from multiprocessing import Pool
-from dbWriter import dbWriter
+from dbWriter import dbWriter, batchStatus
 
-def sum_square(number):
+def sum_square(ten):
     batch = batchStatus(ten)
     dbWriter(batch)
 
 
-def sum_square_with_mp(numbers):
+def sum_square_with_mp(ten):
 
     start_time = time.time()
     p = Pool()
-    result = p.map(sum_square, numbers)
+    result = p.map(sum_square, ten)
 
     p.close()
     p.join()
 
     end_time = time.time() - start_time
 
-    print(f"Processing {len(numbers)} numbers took {end_time} time using multiprocessing.")
+    print(f"Processing {len(ten)} numbers took {end_time} time using multiprocessing.")
 
 
-def sum_square_no_mp(numbers):
+def sum_square_no_mp(ten):
 
     start_time = time.time()
     result = []
 
-    for i in numbers:
+    for i in ten:
         result.append(sum_square(i))
     end_time = time.time() - start_time
 
-    print(f"Processing {len(numbers)} numbers took {end_time} time using serial processing.")
+    print(f"Processing {len(ten)} numbers took {end_time} time using serial processing.")
 
 
 if __name__ == '__main__':
-    numbers = range(10000)
-    sum_square_with_mp(numbers)
-    sum_square_no_mp(numbers)
+    ten = ['27429232', '32778355', '968141', '39381268', '7119961', '575236', '16715413', '558486', '774160330', '7430088']
+    sum_square_with_mp(ten)
+    sum_square_no_mp(ten)
