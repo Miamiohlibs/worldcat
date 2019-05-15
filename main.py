@@ -9,6 +9,7 @@
 
 def main(password,sqlName):
     import psycopg2, sys
+    from python import utilities
     from python.utilities import sqlImport
 
     sqlName = sqlImport(sqlName)
