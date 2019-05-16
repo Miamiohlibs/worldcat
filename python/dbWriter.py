@@ -41,25 +41,31 @@ def dbWriter(batch):
             print('db write failed')
     db_close(c, conn)
 
-def dbWriter2(batch):
+def dbWriter2(batch,dbName):
     import sqlite3, time, datetime
     c,conn = connect_db()
-    create_db(c)
+    create_db(c,conn,dbName)
     # should not need to create table but it doesn't work without it
-    for i in batch:
-        try:
-            c.execute("INSERT INTO swdep VALUES({},{})".format(*i))
-            conn.commit()
-            print('db write successful')
-        except:
-            print('db write failed')
+    for i in len(batch):
+        for i in batch:
+            try:
+                c.execute("INSERT INTO {} VALUES({})".format(dbName,i))
+                conn.commit()
+                print('db write successful')
+            except:
+                print('db write failed')
     db_close(c, conn)
 
 
 # https://python-forum.io/Thread-insert-list-into-sqlite3
 
-def create_db(c):
-    c.execute('CREATE TABLE IF NOT EXISTS swdep(oclc,status)')
+def create_db(c,conn,dbName):
+    c.execute('CREATE TABLE IF NOT EXISTS {}(oclc)'.format(dbName))
+    conn.commit()
+
+def create_CustomDB(c,conn,dbName,columns):
+    c.execute('CREATE TABLE IF NOT EXISTS {}({})'.format(dbName,columns))
+    conn.commit()
 
 def connect_db():
     conn = sqlite3.connect('../Oxford.db')
