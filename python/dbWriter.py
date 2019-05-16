@@ -1,6 +1,6 @@
 import sqlite3, time, datetime
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '..') # allows scripts to be import from parent directory
 
 def batchStatus(results):
     from random import uniform
@@ -23,8 +23,6 @@ def batchStatus(results):
             wait = uniform(0,.5)
             time.sleep(wait)
     status(results)
-    while fail:
-        status(fail)
     return batch,fail
         # mul.append([i,test])
         # print(len(mul))
@@ -41,14 +39,27 @@ def dbWriter(batch):
             print('db write successful')
         except:
             print('db write failed')
+    db_close(c, conn)
 
+def dbWriter2(batch):
+    import sqlite3, time, datetime
+    c,conn = connect_db()
+    create_db(c)
+    # should not need to create table but it doesn't work without it
+    for i in batch:
+        try:
+            c.execute("INSERT INTO swdep VALUES({},{})".format(*i))
+            conn.commit()
+            print('db write successful')
+        except:
+            print('db write failed')
     db_close(c, conn)
 
 
 # https://python-forum.io/Thread-insert-list-into-sqlite3
 
 def create_db(c):
-    c.execute('CREATE TABLE IF NOT EXISTS test(oclc,status)')
+    c.execute('CREATE TABLE IF NOT EXISTS swdep(oclc,status)')
 
 def connect_db():
     conn = sqlite3.connect('../Oxford.db')
@@ -67,12 +78,18 @@ def db_close(c, conn):
     c.close()
     conn.close()
 
-
+# really bad loop; don't use without a bunch of work
+def failLoop(batch,fail):
+    batch, fail = batchStatus(slice)
+    if fail:
+        fail.append()
 
 if __name__ == "__main__":
     one = ['27429232', '32778355', '968141', '39381268', '7119961', '575236', '16715413', '558486', '774160330', '7430088']
     two = ['17257924', '13845695', '21972508', '48070545', '34281492', '52511400', '51182403', '43396865', '48195094', '32075467']
     dbWriter(one)
+    # batchStatus(slice)
+
     # use multiPool to pool processes
     # multiPool(one,two)
 
