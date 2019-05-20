@@ -7,22 +7,20 @@ def batchStatus(results):
     import sqlite3, time, datetime
     from stati.holdingStatus import status
     batch,fail = [],[]
-    def status(results):
-        for i in results:
-            try:
-                test = status(i)
-                if test:
-                    print('status checked', test)
-                    batch.append([i, test])
-                    print(len(batch))
-                else:
-                    print('status read failed')
-                    fail.append(i)
-            except:
-                ('nothing worked, throwing in the towel')
-            wait = uniform(0,.5)
-            time.sleep(wait)
-    status(results)
+    for i in results:
+        try:
+            test = status(i)
+            if test:
+                print('status checked', test)
+                batch.append([i, test])
+                print(len(batch))
+            else:
+                print('status read failed')
+                fail.append([i,test])
+        except:
+            ('nothing worked, throwing in the towel')
+        wait = uniform(0,.5)
+        time.sleep(wait)
     return batch,fail
         # mul.append([i,test])
         # print(len(mul))
