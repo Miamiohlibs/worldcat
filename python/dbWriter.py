@@ -25,21 +25,7 @@ def batchStatus(results):
         # mul.append([i,test])
         # print(len(mul))
 
-def dbWriter(batch):
-    import sqlite3, time, datetime
-    c,conn = connect_db()
-    create_db(c)
-    # should not need to create table but it doesn't work without it
-    for i in batch:
-        try:
-            c.execute("INSERT INTO test VALUES({},{})".format(*i))
-            conn.commit()
-            print('db write successful')
-        except:
-            print('db write failed')
-    db_close(c, conn)
-
-def dbWriter2(batch,dbName):
+def dbWriter(batch,dbName):
     import sqlite3, time, datetime
     c,conn = connect_db()
     create_db(c,conn,dbName)
