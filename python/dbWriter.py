@@ -16,12 +16,12 @@ def batchStatus(results):
                 print(len(batch))
             else:
                 print('status read failed')
-                fail.append([i,test])
+                batch.append([i,test])
         except:
             ('nothing worked, throwing in the towel')
         wait = uniform(0,.5)
         time.sleep(wait)
-    return batch,fail
+    return batch
         # mul.append([i,test])
         # print(len(mul))
 
