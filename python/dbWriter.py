@@ -76,8 +76,15 @@ def failLoop(batch,fail):
 if __name__ == "__main__":
     one = ['27429232', '32778355', '968141', '39381268', '7119961', '575236', '16715413', '558486', '774160330', '7430088']
     two = ['17257924', '13845695', '21972508', '48070545', '34281492', '52511400', '51182403', '43396865', '48195094', '32075467']
-    dbWriter(one)
-    # batchStatus(slice)
+
+    while thousand:
+        fifty = thousand[:50]
+        print(len(fifty))
+        batch = batchStatus(fifty)
+        dbWriter(batch,dbName)
+        del fifty[:50]
+        del thousand[:50]
+        print(len(thousand))
 
     # use multiPool to pool processes
     # multiPool(one,two)
