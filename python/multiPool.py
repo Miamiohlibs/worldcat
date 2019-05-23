@@ -1,28 +1,30 @@
 import multiprocessing
 
 # function to withdraw from account
-def withdraw(balance, lock):
+def withdraw(balance, read,write):
 # def read(balance,lock): #read lock
-    lock.acquire()
-    del balance[:1]
-    lock.release()
-
-# function to deposit to account
-def deposit(balance, lock):
-# def dbWriter(batch,dbName,lock): #write lock
-    lock.acquire()
-    del balance[:1]
-    lock.release()
+    while thousand:
+        read.acquire()
+        fifty = thousand[:50]
+        del thousand[:50]
+        read.release()
+        print(len(fifty))
+        batch = batchStatus(fifty)
+        write.acquire()
+        dbWriter(batch,dbName)
+        write.release()
+        del fifty[:50]
+        print(len(thousand))
 
 def perform_transactions():
     # initial balance (in shared memory)
-    balance =  multiprocessing.Manager().list(results)
+    balance =  multiprocessing.Manager().list(thousand)
     # creating a lock object
-    lock = multiprocessing.Lock()
-    # write = multiprocessing.Lock()
+    read = multiprocessing.Lock()
+    write = multiprocessing.Lock()
     # creating new processes
-    p1 = multiprocessing.Process(target=withdraw, args=(balance,lock))
-    p2 = multiprocessing.Process(target=deposit, args=(balance,lock))
+    p1 = multiprocessing.Process(target=withdraw, args=(balance,read,write))
+    p2 = multiprocessing.Process(target=withdraw, args=(balance,read,write))
     # starting processes
     p1.start()
     p2.start()
@@ -33,6 +35,6 @@ def perform_transactions():
     return balance
 
 if __name__ == "__main__":
-for _ in range(10):
-    # perform same transaction process 10 times
-    perform_transactions()
+    for _ in range(10):
+        # perform same transaction process 10 times
+        perform_transactions()

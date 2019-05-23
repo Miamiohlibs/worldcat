@@ -77,14 +77,18 @@ if __name__ == "__main__":
     one = ['27429232', '32778355', '968141', '39381268', '7119961', '575236', '16715413', '558486', '774160330', '7430088']
     two = ['17257924', '13845695', '21972508', '48070545', '34281492', '52511400', '51182403', '43396865', '48195094', '32075467']
 
-    # loops through list array containing oclc numbers from results = main()
+    # multiprocessing loop and locks list array containing oclc numbers from results = main()
     while thousand:
+        read.acquire()
         fifty = thousand[:50]
+        del thousand[:50]
+        read.release()
         print(len(fifty))
         batch = batchStatus(fifty)
+        write.acquire()
         dbWriter(batch,dbName)
+        write.release()
         del fifty[:50]
-        del thousand[:50]
         print(len(thousand))
 
     # use multiPool to pool processes
