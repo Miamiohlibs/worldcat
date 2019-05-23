@@ -9,6 +9,8 @@ xmljson = "*"
 numpy = "*"
 sqlalchemy = "*"
 psycopg2 = "*"
+ansync = "*"
+ansyncio = "*"
 
 [dev-packages]
 
