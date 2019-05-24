@@ -11,19 +11,5 @@ def sqlImport(sqlName):
     #not returning exact file contents
     # sqlName = 'mdl-min.sql'
 
-
-def sortingHat(slice):
-    # parses list of OCLC numbers into good integers or bad integers if char
-    good,bad = [],[]
-    for i in slice:
-        try:
-            good.append(int(i))
-            # print('good place')
-        except ValueError:
-            bad.append(i)
-            # print('string goes to bad place')
-    return good, bad
-    print(good, bad)
-
 # test criteria
     # results = main('passwd', sqlImport('main-campus-min.sql'))
