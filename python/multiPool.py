@@ -5,10 +5,10 @@ from python.dbWriter import dbWriter, batchStatus, create_db, connect_db, db_clo
 # function to withdraw from account
 def withdraw(balance, read,write):
 # def read(balance,lock): #read lock
-    while thousand:
+    while balance:
         read.acquire()
-        fifty = thousand[:50]
-        del thousand[:50]
+        fifty = balance[:50]
+        del balance[:50]
         read.release()
         print(len(fifty))
         batch = batchStatus(fifty)
@@ -16,7 +16,7 @@ def withdraw(balance, read,write):
         dbWriter(batch,dbName)
         write.release()
         del fifty[:50]
-        print(len(thousand))
+        print(len(balance))
 
 def perform_transactions():
     # initial balance (in shared memory)
