@@ -6,7 +6,7 @@ def batchStatus(results):
     from random import uniform
     import sqlite3, time, datetime
     from stati.holdingStatus import status
-    batch,fail = [],[]
+    batch = []
     for i in results:
         try:
             test = status(i)
