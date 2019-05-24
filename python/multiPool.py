@@ -37,7 +37,5 @@ def perform_transactions(): #define hundred, dbName
     return balance
 
 if __name__ == "__main__":
-    for _ in range(10):
-        # perform same transaction process 10 times
-        perform_transactions() #need to pass in predefined vars below
-        # hundred = main(passwd,sqlName()) and dbName = 'test'
+    perform_transactions() #need to pass in predefined vars below
+    # hundred = main(passwd,sqlName()) and dbName = 'test'
