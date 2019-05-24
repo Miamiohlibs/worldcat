@@ -18,14 +18,14 @@ def withdraw(balance, read,write):
         del fifty[:50]
         print(len(balance))
 
-def perform_transactions():
+def perform_transactions(): #define hundred, dbName
     # initial balance (in shared memory)
-    balance =  multiprocessing.Manager().list(thousand)
+    balance =  multiprocessing.Manager().list(hundred)
     # creating a lock object
     read = multiprocessing.Lock()
     write = multiprocessing.Lock()
     # creating new processes
-    p1 = multiprocessing.Process(target=withdraw, args=(balance,read,write))
+    p1 = multiprocessing.Process(target=withdraw, args=(balance,read,write)) #add dbName
     p2 = multiprocessing.Process(target=withdraw, args=(balance,read,write))
     # starting processes
     p1.start()
@@ -39,4 +39,5 @@ def perform_transactions():
 if __name__ == "__main__":
     for _ in range(10):
         # perform same transaction process 10 times
-        perform_transactions()
+        perform_transactions() #need to pass in predefined vars below
+        # hundred = main(passwd,sqlName()) and dbName = 'test'
