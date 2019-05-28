@@ -66,7 +66,7 @@ def responseParse(r):
         #number errors out; does not like str action on numpy bytes object
         #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
         if i['content']['status'] == 'HTTP 200 OK':
-            # nothing
+            # add column to sqlite database noting status updated date
         else:
             try:
                 number = re.sub("[^0-9]","",str(i[s])) #takes out any characters
@@ -75,12 +75,14 @@ def responseParse(r):
                 else:
                     print('number had chars, trying again without chars')
                     try:
-                        retry = set(number) # attempt
+                        set(number) # retry
                         print('retry worked')
                     except:
                         print('retry failed. add number '+number+'to error list')
 
+            except:
+                print('towel thrown')
         #try to set status from error response object
-        if holding == False:
-            print(s,number,holding,set(number)) #dev testing vars
+        # if holding == False:
+        #     print(s,number,holding,set(number)) #dev testing vars
     print("Finished")
