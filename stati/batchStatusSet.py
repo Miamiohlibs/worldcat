@@ -22,14 +22,14 @@
 
 
 def batchSet(csvBatch): # where batch is csv list of oclc numbers
-    import requests, json
-    import stati.get_token
-    from stati.get_token import my_wskey, my_user
+import requests, json
+import stati.get_token
+from stati.get_token import my_wskey, my_user
 
-    import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding, stati.unsetHoldings
-    from unsetHolding import unset
-    from stati.setHolding import set
-    from stati.holdingStatus import status
+import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding, stati.unsetHolding
+from stati.unsetHolding import unset
+from stati.setHolding import set
+from stati.holdingStatus import status
 
     # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
     # #need to loop through more than fifty or entire csv
