@@ -20,7 +20,8 @@
 
 #purpose: sets the status for fifty items from csv
 
-def batchSet():
+
+def batchSet(csvBatch): # where batch is csv list of oclc numbers
     import requests, json
     import stati.get_token
     from stati.get_token import my_wskey, my_user
@@ -30,11 +31,15 @@ def batchSet():
     from stati.setHolding import set
     from stati.holdingStatus import status
 
-    data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
-    #need to loop through more than fifty or entire csv
-    test = list(data[:50])
+    # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
+    # #need to loop through more than fifty or entire csv
+    # test = list(data[:50])
     #base url plus url encode csv converting commas to %20
-    url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(test)
+    try:
+        urllib.parse.quote(csvBatch)
+        url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(csvBatch)
+    except:
+        print('URL Encode failed. Check list of oclc numbers')
 
     authorization_header = my_wskey.get_hmac_signature(
         method='POST',
@@ -55,7 +60,6 @@ def batchSet():
 # parse the response of batchSet()
 def responseParse(r):
     # parse r json conent looking for status codes other than 409 and 200
-
     # parse response of batch api
     for i in r:
         for s in range(len(data)):
