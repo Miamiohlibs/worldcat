@@ -22,11 +22,9 @@
 
 def set(oclcNumb):
     import requests, json
-    import get_token
-    from get_token import my_wskey, my_user
+    from stati.get_token import my_wskey, my_user
 
     request_url = 'https://worldcat.org/ih/data?classificationScheme=LibraryOfCongress&oclcNumber='+oclcNumb
-
     #problem with HMAC signature
     authorization_header = my_wskey.get_hmac_signature(
         method='POST',
