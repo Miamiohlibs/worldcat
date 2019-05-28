@@ -25,7 +25,7 @@ def batchSet():
     import stati.get_token
     from stati.get_token import my_wskey, my_user
 
-    import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding
+    import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding, stati.unsetHoldings
     from unsetHolding import unset
     from stati.setHolding import set
     from stati.holdingStatus import status
@@ -38,7 +38,7 @@ def batchSet():
 
     authorization_header = my_wskey.get_hmac_signature(
         method='POST',
-        request_url=request_url,
+        request_url=url,
         options={
             'user': my_user,
             'auth_params': None}
@@ -46,7 +46,7 @@ def batchSet():
 
     headers={'Authorization': authorization_header, 'Accept':'application/atom+json; charset=utf8'}
     try:
-        r = requests.post(request_url, headers=headers)
+        r = requests.post(url, headers=headers)
         r.raise_for_status()
         return json.loads(r.content)
     except requests.exceptions.HTTPError as err:
