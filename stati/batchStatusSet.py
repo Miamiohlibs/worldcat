@@ -61,19 +61,26 @@ def batchSet(csvBatch): # where batch is csv list of oclc numbers
 def responseParse(r):
     # parse r json conent looking for status codes other than 409 and 200
     # parse response of batch api
-    for i in r:
-        for s in range(len(data)):
-            #check to make sure oclcnumber is correct length
-            #number errors out; does not like str action on numpy bytes object
-            #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
-            number = re.sub("[^0-9]","",str(data[s])) #takes out any characters
-            #if len(number) !=
-            holding = status(number)
-            #try to set status from error response object
-            if holding == False:
-                print(s,number,holding,set(number)) #dev testing vars
-            #else:
-                #nothing
-        if s == len(data)-1:
-            break
-    print("stop")
+    for i in r['entries']:
+        #check to make sure oclcnumber is correct length
+        #number errors out; does not like str action on numpy bytes object
+        #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
+        if i['content']['status'] == 'HTTP 200 OK':
+            # nothing
+        else:
+            try:
+                number = re.sub("[^0-9]","",str(i[s])) #takes out any characters
+                if number == i:
+                    print('number has no chars')
+                else:
+                    print('number had chars, trying again without chars')
+                    try:
+                        retry = set(number) # attempt
+                        print('retry worked')
+                    except:
+                        print('retry failed. add number '+number+'to error list')
+
+        #try to set status from error response object
+        if holding == False:
+            print(s,number,holding,set(number)) #dev testing vars
+    print("Finished")
