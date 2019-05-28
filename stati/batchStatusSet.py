@@ -20,24 +20,33 @@
 
 #purpose: sets the status for fifty items from csv
 
+def importer(sierraApiCall):
+    #script a Sierra api or sql query call to get records changed in the last X days
+    while sierraApiCall:
+        #slice into batches of 50 and call batchSet(csvBatch) below
+
+        # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
+        # #need to loop through more than fifty or entire csv
+        # test = list(data[:50])
+        #base url plus url encode csv converting commas to %20
+        batchSet(fifty)
 
 def batchSet(csvBatch): # where batch is csv list of oclc numbers
-import requests, json
-import stati.get_token
-from stati.get_token import my_wskey, my_user
+    import requests, json
+    import stati.get_token
+    from stati.get_token import my_wskey, my_user
 
-import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding, stati.unsetHolding
-from stati.unsetHolding import unset
-from stati.setHolding import set
-from stati.holdingStatus import status
+    import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding, stati.unsetHolding
+    from stati.unsetHolding import unset
+    from stati.setHolding import set
+    from stati.holdingStatus import status
 
-    # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
-    # #need to loop through more than fifty or entire csv
-    # test = list(data[:50])
-    #base url plus url encode csv converting commas to %20
+    stringBatch = ''
+    for i in csvBatch: # parsing sqlite3 return array of oclc numbers
+        test += str(i)[0]+',' # for altering input array formats use test += str(i)+','
     try:
-        urllib.parse.quote(csvBatch)
-        url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(csvBatch)
+        urllib.parse.quote(stringBatch)
+        url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(stringBatch)
     except:
         print('URL Encode failed. Check list of oclc numbers')
 
@@ -59,6 +68,7 @@ from stati.holdingStatus import status
 
 # parse the response of batchSet()
 def responseParse(r):
+    import json # status 
     # parse r json conent looking for status codes other than 409 and 200
     # parse response of batch api
     for i in r['entries']:
@@ -67,9 +77,10 @@ def responseParse(r):
         #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
         if i['content']['status'] == 'HTTP 200 OK':
             # add column to sqlite database noting status updated date
+            print('all good')
         else:
             try:
-                number = re.sub("[^0-9]","",str(i[s])) #takes out any characters
+                number = re.sub("[^0-9]","",str(i['content']['requestedOclcNumber'])) #takes out any characters
                 if number == i:
                     print('number has no chars')
                 else:
