@@ -22,15 +22,15 @@
 
 def batchSet():
     import requests, json
-    import get_token
-    from get_token import my_wskey, my_user
+    import stati.get_token
+    from stati.get_token import my_wskey, my_user
 
-    import csv, holdingStatus, re, numpy, urllib
+    import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding
     from unsetHolding import unset
-    from setHolding import set
-    from holdingStatus import status
+    from stati.setHolding import set
+    from stati.holdingStatus import status
 
-    data = numpy.loadtxt(open('../data/sandboxRecords.csv'), delimiter='/n',dtype='int')
+    data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
     #need to loop through more than fifty or entire csv
     test = list(data[:50])
     #base url plus url encode csv converting commas to %20
