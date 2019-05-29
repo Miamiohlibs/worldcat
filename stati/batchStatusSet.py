@@ -20,15 +20,24 @@
 
 #purpose: sets the status for fifty items from csv
 
-def importer(sierraApiCall):
+def importer(dbName):
     #script a Sierra api or sql query call to get records changed in the last X days
-    while sierraApiCall:
-        #slice into batches of 50 and call batchSet(csvBatch) below
+    import sqlite3
+    conn = sqlite3.connect('../Oxford.db')
+    c = conn.cursor()
+    c.execute('SELECT oclc FROM {}'.format(dbName)) #test swdep swdepAll #dont use - in table names
+    allRows = c.fetchall()
+    # len(allRows)
 
-        # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
-        # #need to loop through more than fifty or entire csv
-        # test = list(data[:50])
+    # alternatively use csv
+    # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
+    # test = list(data[:50])
+    while allRows:         # batches of 50; calls batchSet(csvBatch) below
         #base url plus url encode csv converting commas to %20
+        fifty = ''
+        for i in csvBatch: # parsing sqlite3 return array of oclc numbers
+            fifty += str(i)[0]+','
+
         batchSet(fifty)
 
 def batchSet(csvBatch): # where batch is csv list of oclc numbers
@@ -41,9 +50,7 @@ def batchSet(csvBatch): # where batch is csv list of oclc numbers
     from stati.setHolding import set
     from stati.holdingStatus import status
 
-    stringBatch = ''
-    for i in csvBatch: # parsing sqlite3 return array of oclc numbers
-        stringBatch += str(i)[0]+',' # for altering input array formats use test += str(i)+','
+    # for altering input array formats use test += str(i)+','
     try:
         urllib.parse.quote(stringBatch)
         url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(stringBatch)
