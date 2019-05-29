@@ -1,6 +1,4 @@
 import sqlite3, time, datetime
-import sys
-sys.path.insert(0, '..') # allows scripts to be import from parent directory
 
 def batchStatus(results):
     from random import uniform
