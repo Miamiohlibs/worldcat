@@ -43,7 +43,7 @@ def batchSet(csvBatch): # where batch is csv list of oclc numbers
 
     stringBatch = ''
     for i in csvBatch: # parsing sqlite3 return array of oclc numbers
-        test += str(i)[0]+',' # for altering input array formats use test += str(i)+','
+        stringBatch += str(i)[0]+',' # for altering input array formats use test += str(i)+','
     try:
         urllib.parse.quote(stringBatch)
         url = 'https://worldcat.org/ih/datalist?holdingLibraryCode=MIA&oclcNumbers='+urllib.parse.quote(stringBatch)
@@ -68,7 +68,7 @@ def batchSet(csvBatch): # where batch is csv list of oclc numbers
 
 # parse the response of batchSet()
 def responseParse(r):
-    import json # status 
+    import json # status
     # parse r json conent looking for status codes other than 409 and 200
     # parse response of batch api
     for i in r['entries']:
