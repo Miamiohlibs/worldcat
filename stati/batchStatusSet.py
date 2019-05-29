@@ -20,7 +20,7 @@
 
 #purpose: sets the status for fifty items from csv
 
-def importer(dbName):
+def importSender(dbName):
     #script a Sierra api or sql query call to get records changed in the last X days
     import sqlite3
     conn = sqlite3.connect('../Oxford.db')
@@ -32,15 +32,25 @@ def importer(dbName):
     # alternatively use csv
     # data = numpy.loadtxt(open('data/sandboxRecords.csv'), delimiter='/n',dtype='int')
     # test = list(data[:50])
+    entries = []
     while allRows:         # batches of 50; calls batchSet(csvBatch) below
         #base url plus url encode csv converting commas to %20
+        batch = allRows[:50]
+        del allRows[:50]
+        print(len(batch),len(allRows))
         fifty = ''
-        for i in csvBatch: # parsing sqlite3 return array of oclc numbers
-            fifty += str(i)[0]+','
+        # string builder
+        for i in batch: # parsing sqlite3 return array of oclc numbers
+            fifty += str(i[0])+','
+            print(fifty)
+        # requests to update batch of fifty or less oclc numbers
+        r = batchSet(fifty)
+        # parse responses
+        for i in r['entries']:
+            entries.append(i)
 
-        batchSet(fifty)
 
-def batchSet(csvBatch): # where batch is csv list of oclc numbers
+def batchSet(stringBatch): # where batch is csv list of oclc numbers
     import requests, json
     import stati.get_token
     from stati.get_token import my_wskey, my_user
