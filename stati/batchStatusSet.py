@@ -45,9 +45,14 @@ def importSender(dbName):
             print(fifty)
         # requests to update batch of fifty or less oclc numbers
         r = batchSet(fifty)
+        print('total responses', len(r['entries']))
         # parse responses
         for i in r['entries']:
             entries.append(i)
+
+    # write entries to sqlite db
+    with open('musicWrite.json', 'w') as outfile:
+        json.dump(entries,outfile)
 
 
 def batchSet(stringBatch): # where batch is csv list of oclc numbers
