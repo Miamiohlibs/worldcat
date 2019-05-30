@@ -4,9 +4,8 @@
 # normal sql network access limits/firewalls apply
 # https://pynative.com/python-postgresql-select-data-from-table/
 
-# test criteria
-    # results = main('passwd', 'mul-min.sql')
-
+# imports the postgres results for all oclc numbers matching sql location code
+# results = main('passwd', 'mul-min.sql')
 def main(password,sqlName):
     import psycopg2, sys
     from python import utilities
