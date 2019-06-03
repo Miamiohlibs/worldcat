@@ -14,6 +14,7 @@ def main(password,sqlName):
 
     sqlName = sqlImport(sqlName)
     try:
+        # uncomment connection() lines below replacing with your local Sierra credentials
         # connection = psycopg2.connect(user = "user",
         #                               password = password,
         #                               host = "hostIP",
