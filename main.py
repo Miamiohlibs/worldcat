@@ -1,4 +1,5 @@
 # accepts sql password and minimized sql query as args
+# minimized being a qery without any comments or newline carriage returns
 # main() parses any sql query and returns a list array for each row in result
 # remove commented database criteria to establish connection
 # normal sql network access limits/firewalls apply
