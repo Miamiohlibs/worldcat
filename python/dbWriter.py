@@ -37,7 +37,7 @@ def dbWriter(batch,dbName):
             print('db write failed')
     db_close(c, conn)
 
-def oclcWriter(batch,dbName):
+def oclcWriterFromList(batch,dbName):
     import sqlite3, time, datetime
     c,conn = connect_db()
     create_db(c,conn,dbName)
@@ -45,6 +45,21 @@ def oclcWriter(batch,dbName):
     for i in batch:
         try:
             c.execute("INSERT INTO '{}' (oclc) VALUES({})".format(dbName,i[0]))
+            conn.commit()
+            print('db write successful')
+        except:
+            print('db write failed')
+    db_close(c, conn)
+
+#
+def oclcWriterFromSql(batch,dbName):
+    import sqlite3, time, datetime
+    c,conn = connect_db()
+    create_db(c,conn,dbName)
+    # should not need to create table but it doesn't work without it
+    for i in batch:
+        try:
+            c.execute("INSERT INTO '{}' (oclc) VALUES({})".format(dbName,i))
             conn.commit()
             print('db write successful')
         except:
