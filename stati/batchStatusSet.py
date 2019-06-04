@@ -121,7 +121,7 @@ def responseParse(r):
         #     print(s,number,holding,set(number)) #dev testing vars
     print("Finished")
 
-
+# parses json response objects from the batchStatusSet(), looking for old oclc numbers
 def currentOclcNumber(entries):
     import json
     for i in entries:
