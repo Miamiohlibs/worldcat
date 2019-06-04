@@ -44,7 +44,7 @@ def oclcWriter(batch,dbName):
     # should not need to create table but it doesn't work without it
     for i in batch:
         try:
-            c.execute("INSERT INTO '{}' (oclc) VALUES({})".format(dbName,i[0][0]))
+            c.execute("INSERT INTO '{}' (oclc) VALUES({})".format(dbName,i[0]))
             conn.commit()
             print('db write successful')
         except:
@@ -63,7 +63,7 @@ def create_CustomDB(c,conn,dbName,columns):
     conn.commit()
 
 def connect_db():
-    conn = sqlite3.connect('../Oxford.db')
+    conn = sqlite3.connect('Oxford.db')
     c = conn.cursor()
     return c,conn
 
