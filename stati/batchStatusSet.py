@@ -25,7 +25,7 @@
 def importSender(dbName):
     #script a Sierra api or sql query call to get records changed in the last X days
     import sqlite3
-    conn = sqlite3.connect('../Oxford.db')
+    conn = sqlite3.connect('Oxford.db')
     c = conn.cursor()
     c.execute('SELECT oclc FROM {}'.format(dbName)) #test swdep swdepAll #dont use - in table names
     allRows = c.fetchall()
@@ -64,7 +64,6 @@ def batchSet(stringBatch): # where batch is csv list of oclc numbers
     from stati.get_token import my_wskey, my_user
 
     import csv, stati.holdingStatus, re, numpy, urllib, stati.setHolding, stati.unsetHolding
-    from stati.unsetHolding import unset
     from stati.setHolding import set
     from stati.holdingStatus import status
 
