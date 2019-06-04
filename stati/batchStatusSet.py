@@ -20,6 +20,8 @@
 
 #purpose: sets the status for fifty items from csv
 
+# entries = []
+# entries = importSender()
 def importSender(dbName):
     #script a Sierra api or sql query call to get records changed in the last X days
     import sqlite3
@@ -53,6 +55,7 @@ def importSender(dbName):
     # write entries to sqlite db
     with open(dbName+'.json', 'w') as outfile:
         json.dump(entries,outfile)
+    return(entries)
 
 
 def batchSet(stringBatch): # where batch is csv list of oclc numbers
