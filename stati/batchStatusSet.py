@@ -24,7 +24,7 @@
 # entries = importSender()
 def importSender(dbName):
     #script a Sierra api or sql query call to get records changed in the last X days
-    import sqlite3
+    import sqlite3, json
     conn = sqlite3.connect('Oxford.db')
     c = conn.cursor()
     c.execute('SELECT oclc FROM {}'.format(dbName)) #test swdep swdepAll #dont use - in table names
@@ -51,11 +51,10 @@ def importSender(dbName):
         # parse responses
         for i in r['entries']:
             entries.append(i)
-
+    return(entries)
     # write entries to sqlite db
     with open(dbName+'.json', 'w') as outfile:
         json.dump(entries,outfile)
-    return(entries)
 
 
 def batchSet(stringBatch): # where batch is csv list of oclc numbers
@@ -96,7 +95,7 @@ def responseParse(r):
     # parse r json conent looking for status codes other than 409 and 200
     # parse response of batch api
     for i in r['entries']:
-        #check to make sure oclcnumber is correct length
+        # oclcnumber length check
         #number errors out; does not like str action on numpy bytes object
         #test for bytes: number = re.sub(b"[^0-9]",b"",b"{}".format(data[0]))
         if i['content']['status'] == 'HTTP 200 OK':
@@ -121,3 +120,15 @@ def responseParse(r):
         # if holding == False:
         #     print(s,number,holding,set(number)) #dev testing vars
     print("Finished")
+
+
+def currentOclcNumber(entries):
+    import json
+    for i in entries:
+        if i['content']['requestedOclcNumber'] != i['content']['currentOclcNumber']:
+            print(i['content']['requestedOclcNumber'], i['content']['currentOclcNumber'])
+
+    # alternatively:
+    # for i in entries:
+    # if i['content']['requestedOclcNumber'] == i['content']['currentOclcNumber']:
+    #     bad.append[{'requestedOclcNumber': i['content']['requestedOclcNumber'], 'currentOclcNumber': i['content']['currentOclcNumber']}]
