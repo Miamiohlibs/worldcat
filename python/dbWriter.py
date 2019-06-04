@@ -79,12 +79,6 @@ def db_close(c, conn):
     c.close()
     conn.close()
 
-# really bad loop; don't use without a bunch of work
-def failLoop(batch,fail):
-    batch, fail = batchStatus(slice)
-    if fail:
-        fail.append()
-
 if __name__ == "__main__":
     one = ['27429232', '32778355', '968141', '39381268', '7119961', '575236', '16715413', '558486', '774160330', '7430088']
     two = ['17257924', '13845695', '21972508', '48070545', '34281492', '52511400', '51182403', '43396865', '48195094', '32075467']
