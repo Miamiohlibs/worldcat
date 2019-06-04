@@ -51,7 +51,7 @@ def importSender(dbName):
             entries.append(i)
 
     # write entries to sqlite db
-    with open('musicWrite.json', 'w') as outfile:
+    with open(dbName+'.json', 'w') as outfile:
         json.dump(entries,outfile)
 
 
