@@ -52,10 +52,9 @@ def importSender(dbName):
         for i in r['entries']:
             entries.append(i)
     return(entries)
-    # write entries to sqlite db
     with open(dbName+'.json', 'w') as outfile:
         json.dump(entries,outfile)
-
+    # write entries to sqlite db instead
 
 def batchSet(stringBatch): # where batch is csv list of oclc numbers
     import requests, json
