@@ -42,14 +42,16 @@ def oclcWriterFromList(batch,dbName):
     c,conn = connect_db()
     create_db(c,conn,dbName)
     # should not need to create table but it doesn't work without it
-    for i in batch:
-        try:
-            c.execute("INSERT INTO '{}' (oclc) VALUES({})".format(dbName,i[0]))
-            conn.commit()
-            print('db write successful')
-        except:
-            print('db write failed')
+    #for i in batch:
+    try:
+        c.executemany("INSERT INTO '{}' (oclc) VALUES('{}')".format(dbName,batch))
+        # batch data going into executemany is not formatted correctly
+        print('db write successful')
+    except:
+        print('db write failed')
+    conn.commit()
     db_close(c, conn)
+
 
 #
 def oclcWriterFromSql(batch,dbName):
