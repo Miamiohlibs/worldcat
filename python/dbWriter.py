@@ -40,9 +40,7 @@ def dbWriter(batch,dbName):
 def oclcWriterFromList(batch,dbName):
     import sqlite3, time, datetime
     c,conn = connect_db()
-    create_db(c,conn,dbName)
-    # should not need to create table but it doesn't work without it
-    #for i in batch:
+    create_db(c,conn,dbName) #doesn't work without create db
     try:
         c.executemany("INSERT INTO {} (oclc) VALUES(?)".format(dbName), zip(batch)) #wonky, but works
         print('db write successful')
