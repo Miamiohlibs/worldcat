@@ -44,7 +44,7 @@ def oclcWriterFromList(batch,dbName):
     # should not need to create table but it doesn't work without it
     #for i in batch:
     try:
-        c.executemany("INSERT INTO {} (oclc) VALUES(?)".format(dbName), zip(batch))
+        c.executemany("INSERT INTO {} (oclc) VALUES(?)".format(dbName), zip(batch)) #wonky, but works
         print('db write successful')
     except:
         print('db write failed')
